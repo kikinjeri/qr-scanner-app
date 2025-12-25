@@ -1,37 +1,68 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <script src="https://unpkg.com/html5-qrcode"></script>
-    <style>
-      body {
-        margin: 0;
-        background: black;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-      #reader {
-        width: 100%;
-        max-width: 400px;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="reader"></div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Scanner</title>
 
-    <script>
-      const qr = new Html5Qrcode("reader");
+  <script src="https://unpkg.com/html5-qrcode"></script>
 
-      qr.start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: 250 },
-        (decoded) => {
-          window.parent.postMessage({ type: "qr-result", data: decoded }, "*");
-          qr.stop();
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #reader {
+      width: 100%;
+      max-width: 420px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="reader"></div>
+
+  <script>
+    async function startScanner() {
+      const html5QrCode = new Html5Qrcode("reader");
+
+      const config = {
+        fps: 10,
+        qrbox: 250,
+        experimentalFeatures: {
+          useBarCodeDetectorIfSupported: true
+        }
+      };
+
+      const cameras = await Html5Qrcode.getCameras();
+      const cameraId = cameras[0]?.id;
+
+      if (!cameraId) {
+        alert("No camera found");
+        return;
+      }
+
+      html5QrCode.start(
+        cameraId,
+        config,
+        (decodedText) => {
+          window.parent.postMessage(
+            { type: "qr-result", data: decodedText },
+            "*"
+          );
         }
       );
-    </script>
-  </body>
+    }
+
+    startScanner();
+  </script>
+</body>
 </html>
+
+

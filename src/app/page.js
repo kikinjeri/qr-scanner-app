@@ -1,11 +1,20 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
-const QRScanner = dynamic(() => import("./components/QRScanner"), {
-  ssr: false,
-});
+import QRScanner from "./components/QRScanner";
 
 export default function Page() {
-  return <QRScanner />;
+  return (
+    <main
+      style={{
+        minHeight: "100vh",
+        padding: "24px 16px 90px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        background: "#fafafa",
+      }}
+    >
+      <QRScanner />
+    </main>
+  );
 }
