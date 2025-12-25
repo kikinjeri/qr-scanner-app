@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+      body {
+        margin: 0;
+        background: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #reader {
+        width: 100%;
+        max-width: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="reader"></div>
+
+    <script>
+      const qr = new Html5Qrcode("reader");
+
+      qr.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: 250 },
+        (decoded) => {
+          window.parent.postMessage({ type: "qr-result", data: decoded }, "*");
+          qr.stop();
+        }
+      );
+    </script>
+  </body>
+</html>
