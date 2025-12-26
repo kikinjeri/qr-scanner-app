@@ -19,7 +19,8 @@ Responsive mobile‑first design
 Add your screenshot here
 
 Code
-[PLACE SCREENSHOT HERE]
+![QR Scanner Screenshot](./screenshots/qrcode-screenshot.jpeg)
+
 🚀 Features
 🔍 Real‑Time QR Scanning
 Uses the device camera to scan QR codes instantly through an isolated iframe scanner for maximum stability.
