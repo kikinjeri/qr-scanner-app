@@ -88,13 +88,25 @@ export default function QRScanner() {
           />
 
           <Button
-            variant="outlined"
-            fullWidth
-            sx={{ mt: 2 }}
-            onClick={() => fileInputRef.current.click()}
-          >
-            Scan from image
-          </Button>
+  fullWidth
+  sx={{
+    mt: 2,
+    backgroundColor: "#111",
+    color: "#fff",
+    padding: "10px 16px",
+    borderRadius: "8px",
+    textTransform: "none",
+    fontSize: "15px",
+    fontWeight: 500,
+    "&:hover": {
+      backgroundColor: "#000",
+    },
+  }}
+  onClick={() => fileInputRef.current.click()}
+>
+  Scan from image
+</Button>
+
         </>
       )}
 
